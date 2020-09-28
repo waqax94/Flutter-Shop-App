@@ -15,6 +15,8 @@ class OrderItem extends StatefulWidget {
 }
 
 class _OrderItemState extends State<OrderItem> {
+  @override
+  void initState() {}
   bool _expanded = false;
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,8 @@ class _OrderItemState extends State<OrderItem> {
       child: Column(
         children: [
           ListTile(
-            title: Text('Order Total: \$${widget.order.total.toStringAsFixed(2)}'),
+            title:
+                Text('Order Total: \$${widget.order.total.toStringAsFixed(2)}'),
             subtitle: Text(DateFormat('MMMM dd, yyyy  hh:mm')
                 .format(widget.order.dateTime)),
             trailing: IconButton(
@@ -35,34 +38,34 @@ class _OrderItemState extends State<OrderItem> {
               },
             ),
           ),
-          if (_expanded)
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-              height: min(widget.order.products.length * 20.0 + 10, 100),
-              child: ListView(
-                children: widget.order.products
-                    .map((prod) => Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              prod.title,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).primaryColor),
-                            ),
-                            Text(
-                              '\$${prod.price.toStringAsFixed(2)} X ${prod.quantity}',
-                              style: TextStyle(
+          AnimatedContainer(
+            duration: Duration(milliseconds: 300),
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+            height: _expanded ? min(widget.order.products.length * 23.0 + 10, 100) : 0,
+            child: ListView(
+              children: widget.order.products
+                  .map((prod) => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            prod.title,
+                            style: TextStyle(
                                 fontSize: 18,
-                                color: Colors.grey,
-                              ),
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).primaryColor),
+                          ),
+                          Text(
+                            '\$${prod.price.toStringAsFixed(2)} X ${prod.quantity}',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.grey,
                             ),
-                          ],
-                        ))
-                    .toList(),
-              ),
+                          ),
+                        ],
+                      ))
+                  .toList(),
             ),
+          ),
         ],
       ),
     );

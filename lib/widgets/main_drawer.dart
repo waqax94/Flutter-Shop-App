@@ -4,12 +4,14 @@ import 'package:provider/provider.dart';
 import '../pages/order_page.dart';
 import '../pages/user_product_page.dart';
 import '../providers/auth.dart';
+import '../helpers/custom_route.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void openPage(String pageRoute) {
       Navigator.of(context).pushReplacementNamed(pageRoute);
+      //Navigator.of(context).pushReplacement(CustomRoute(builder: (context) => OrderPage(),),);
     }
 
     Widget buildDrawerTile(String title, String pageRoute, IconData icon) {
